@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController2 : MonoBehaviour {
+public class CameraController : MonoBehaviour {
     public float distanceFromPlayer = 10f;
     public float rotationSpeed;
     public GameObject LookAtObject;
@@ -20,7 +20,7 @@ public class CameraController2 : MonoBehaviour {
     private void LateUpdate()
     {
         float mouseX = Input.GetAxis("Mouse X");
-        float mouseY = Input.GetAxis("Mouse Y");
+        float mouseY = -1 * Input.GetAxis("Mouse Y");
         
         //Vector of the target lookAt
         Vector3 lookAtObjectCoord = LookAtObject.transform.position;
@@ -44,7 +44,7 @@ public class CameraController2 : MonoBehaviour {
         transform.position = lookAtObjectCoord + (transform.position - lookAtObjectCoord).normalized * distanceFromPlayer;
 
         //Moving in the X Axis
-        transform.RotateAround(lookAtObjectCoord, new Vector3(0.0f, 1.0f, 0.0f), rotationSpeed * Time.deltaTime * -mouseX);
+        transform.RotateAround(lookAtObjectCoord, new Vector3(0.0f, 1.0f, 0.0f), rotationSpeed * Time.deltaTime * mouseX);
 
         //Moving in the Y axis
         if (!cameraIsTop && !cameraIsBot)
